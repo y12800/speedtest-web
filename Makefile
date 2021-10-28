@@ -4,14 +4,13 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=SpeedtestGo
+PKG_NAME:=speedtest-go
 PKG_VERSION:=1.1.4
-PKG_RELEASE:=1
+PKG_RELEASE:=$(AUTORELESE)
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/librespeed/speedtest-go.git
-PKG_SOURCE_VERSION:=158e37d3ae14b971f3fe03f26164e93bbfaa5f5e
-PKG_MIRROR_HASH:=63043004750197c501258aac93aaac8b8dcfd96f8ac0bf7a9689c077badbe542
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/librespeed/speedtest-go/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=409727df43c49119556f57b700a725e3bbec2a0f6ea54dfad948c5eefa715038
 
 PKG_LICENSE:=LGPL-3.0
 PKG_LICENSE_FILES:=LICENSE
@@ -26,24 +25,12 @@ PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/librespeed/speedtest-go
 GO_PKG_LDFLAGS:=-s -w
-GO_PKG_LDFLAGS_X:=main.Version=v$(PKG_VERSION)
+GO_PKG_LDFLAGS_X:=main.VersionString=v$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/$(PKG_NAME)
-	SECTION:=net
-	CATEGORY:=Network
-	TITLE:=SpeedtestGo is a Go backend for LibreSpeed
-	URL:=https://github.com/librespeed/speedtest-go
-	DEPENDS:=$(GO_ARCH_DEPENDS)
-endef
-
-define Package/$(PKG_NAME)/description
-SpeedtestGo is a Go backend for LibreSpeed
-endef
-
-define Package/$(PKG_NAME)/config
+define Package/speedtest-go/config
 config SPEEDTEST_GO_COMPRESS_GOPROXY
 	bool "Compiling with GOPROXY proxy"
 	default n
@@ -58,18 +45,30 @@ ifeq ($(CONFIG_SPEEDTEST_GO_COMPRESS_GOPROXY),y)
 	export GOPROXY=https://goproxy.baidu.com
 endif
 
+define Package/speedtest-go
+  SECTION:=net
+  CATEGORY:=Network
+  TITLE:=speedtest-go is a Go backend for LibreSpeed
+  URL:=https://github.com/librespeed/speedtest-go
+  DEPENDS:=$(GO_ARCH_DEPENDS)
+endef
+
+define Package/speedtest-go/description
+	speedtest-go is a Go backend for LibreSpeed
+endef
+
 define Build/Compile
 	$(call GoPackage/Build/Compile)
 ifeq ($(CONFIG_SPEEDTEST_GO_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/SpeedtestGo
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest-go
 endif
 endef
 
-define Package/$(PKG_NAME)/install
+define Package/speedtest-go/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/SpeedtestGo $(1)/usr/bin/$(PKG_NAME)
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/speedtest-go $(1)/usr/bin/$(PKG_NAME)
 endef
 
-$(eval $(call GoBinPackage,$(PKG_NAME)))
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call GoBinPackage,speedtest-go))
+$(eval $(call BuildPackage,speedtest-go))
