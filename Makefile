@@ -60,14 +60,14 @@ endef
 define Build/Compile
 	$(call GoPackage/Build/Compile)
 ifeq ($(CONFIG_SPEEDTEST_GO_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest-go
+	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/speedtest
 endif
 endef
 
 define Package/speedtest-go/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/speedtest-go $(1)/usr/bin/$(PKG_NAME)
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/speedtest $(1)/usr/bin/$(PKG_NAME)
 endef
 
 $(eval $(call GoBinPackage,speedtest-go))
