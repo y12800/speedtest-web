@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=speedtest-go
-PKG_VERSION:=1.1.4
+PKG_VERSION:=1.1.5
 PKG_RELEASE:=$(AUTORELESE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/librespeed/speedtest-go/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=409727df43c49119556f57b700a725e3bbec2a0f6ea54dfad948c5eefa715038
+PKG_SOURCE_URL:=https://codeload.github.com/ZeaKyX/speedtest-go/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=40b83031c916fbadd99ca8850a1e8b3af44746342ab0070a88ad929b4a80c480
 
 PKG_LICENSE:=LGPL-3.0
 PKG_LICENSE_FILES:=LICENSE
