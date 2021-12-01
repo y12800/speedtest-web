@@ -8,7 +8,7 @@ PKG_NAME:=speedtest-web
 PKG_VERSION:=1.1.5
 PKG_RELEASE:=$(AUTORELESE)
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=speedtest-go-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ZeaKyX/speedtest-go/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=927d815f1dd2a6ed0e6934492b5b9a1dcec88bc382aaa666dbcf6ee5597c26f4
 
